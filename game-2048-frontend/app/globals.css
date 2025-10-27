@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #14B8A6;
+  --secondary: #10B981;
+  --accent: #06B6D4;
+  --background: #FFFFFF;
+  --surface: #F8FAFC;
+  --text: #0F172A;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #2DD4BF;
+    --secondary: #34D399;
+    --accent: #22D3EE;
+    --background: #0F172A;
+    --surface: #1E293B;
+    --text: #F8FAFC;
+  }
+}
+
+body {
+  color: var(--text);
+  background: var(--background);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.glass {
+  background: rgba(248, 250, 252, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  .glass {
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+  }
+}
+
+/* Modal Animations */
+@keyframes scale-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.2s ease-out;
+}
