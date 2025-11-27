@@ -23,11 +23,23 @@ const dirname = path.basename(dir);
 const line =
   "\n===================================================================\n";
 
+// Check if ABI files already exist (for Vercel builds where fhevm-hardhat-template might not be available)
+const existingABI = path.join(outdir, `${CONTRACT_NAME}ABI.ts`);
+const existingAddresses = path.join(outdir, `${CONTRACT_NAME}Addresses.ts`);
+
 if (!fs.existsSync(dir)) {
-  console.error(
+  console.warn(
     `${line}Unable to locate ${rel}. Expecting ../fhevm-hardhat-template${line}`
   );
-  process.exit(1);
+  if (fs.existsSync(existingABI) && fs.existsSync(existingAddresses)) {
+    console.log(`Using existing ABI files from ${outdir}`);
+    process.exit(0);
+  } else {
+    console.error(
+      `${line}ABI files not found and cannot generate new ones. Please ensure fhevm-hardhat-template is available or ABI files are committed to the repository.${line}`
+    );
+    process.exit(1);
+  }
 }
 
 const deploymentsDir = path.join(dir, "deployments");
